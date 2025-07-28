@@ -76,6 +76,8 @@ export interface Config {
     contact: Contact;
     premios: Premio;
     publicaciones: Publicacione;
+    textos: Texto;
+    pages: Page;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -91,6 +93,8 @@ export interface Config {
     contact: ContactSelect<false> | ContactSelect<true>;
     premios: PremiosSelect<false> | PremiosSelect<true>;
     publicaciones: PublicacionesSelect<false> | PublicacionesSelect<true>;
+    textos: TextosSelect<false> | TextosSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -217,7 +221,10 @@ export interface ProyectosArquitectura {
    * El slug debe ser igual a la versión en ingles.
    */
   slug?: string | null;
-  'imagen-portada'?: (string | null) | Media;
+  sketch_front?: (string | null) | Media;
+  sketch_back?: (string | null) | Media;
+  cover_image_front?: (string | null) | Media;
+  cover_image_back?: (string | null) | Media;
   location?: {
     root: {
       type: string;
@@ -249,7 +256,7 @@ export interface ProyectosArquitectura {
     };
     [k: string]: unknown;
   } | null;
-  category?: ('residencial' | 'multi-familiar' | 'corporativo' | 'resort' | 'proyectos-especiales') | null;
+  category?: string | null;
   video?: (string | null) | Media;
   GeneralesProyectoArquitectura?: {
     root: {
@@ -498,6 +505,99 @@ export interface Publicacione {
   createdAt: string;
 }
 /**
+ * Fragmentos de texto que se pueden reutilizar en varias páginas.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "textos".
+ */
+export interface Texto {
+  id: string;
+  /**
+   * Este nombre es solo para identificar el texto en el panel de administración (ej. "Biografía del Director", "Eslogan de la página de inicio"). No se muestra en la web.
+   */
+  internalName: string;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  title: string;
+  slug: string;
+  layout: (
+    | {
+        headerText?: string | null;
+        backgroundImage: string | Media;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'heroBlock';
+      }
+    | {
+        letters?:
+          | {
+              letter: string;
+              hoverWord: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'smartAcronym';
+      }
+    | {
+        directorImage: string | Media;
+        director?: (string | null) | Team;
+        bioText?: (string | null) | Texto;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'directorBio';
+      }
+    | {
+        title?: string | null;
+        teamMembers?: (string | Team)[] | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'teamGrid';
+      }
+    | {
+        title?: string | null;
+        projects?: (string | ProyectosArquitectura)[] | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'projectList';
+      }
+    | {
+        title?: string | null;
+        featuredAwards?: (string | Premio)[] | null;
+        featuredNews?: (string | News)[] | null;
+        featuredPublications?: (string | Publicacione)[] | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'newsAndPublications';
+      }
+  )[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
@@ -539,6 +639,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'publicaciones';
         value: string | Publicacione;
+      } | null)
+    | ({
+        relationTo: 'textos';
+        value: string | Texto;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -649,7 +757,10 @@ export interface ProyectosArquitecturaSelect<T extends boolean = true> {
   publico?: T;
   titulo?: T;
   slug?: T;
-  'imagen-portada'?: T;
+  sketch_front?: T;
+  sketch_back?: T;
+  cover_image_front?: T;
+  cover_image_back?: T;
   location?: T;
   year?: T;
   area?: T;
@@ -768,6 +879,86 @@ export interface PublicacionesSelect<T extends boolean = true> {
               id?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "textos_select".
+ */
+export interface TextosSelect<T extends boolean = true> {
+  internalName?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  layout?:
+    | T
+    | {
+        heroBlock?:
+          | T
+          | {
+              headerText?: T;
+              backgroundImage?: T;
+              id?: T;
+              blockName?: T;
+            };
+        smartAcronym?:
+          | T
+          | {
+              letters?:
+                | T
+                | {
+                    letter?: T;
+                    hoverWord?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        directorBio?:
+          | T
+          | {
+              directorImage?: T;
+              director?: T;
+              bioText?: T;
+              id?: T;
+              blockName?: T;
+            };
+        teamGrid?:
+          | T
+          | {
+              title?: T;
+              teamMembers?: T;
+              id?: T;
+              blockName?: T;
+            };
+        projectList?:
+          | T
+          | {
+              title?: T;
+              projects?: T;
+              id?: T;
+              blockName?: T;
+            };
+        newsAndPublications?:
+          | T
+          | {
+              title?: T;
+              featuredAwards?: T;
+              featuredNews?: T;
+              featuredPublications?: T;
+              id?: T;
+              blockName?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

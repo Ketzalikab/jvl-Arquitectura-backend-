@@ -17,6 +17,9 @@ import { Contact } from './collections/Contact'
 import { Premios } from './collections/Premios'
 import { Publicaciones } from './collections/Publicaciones'
 
+import { Texts } from './collections/Texts'
+import { Pages } from './collections/Pages'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -74,7 +77,9 @@ routes: {
     News, 
     Contact,
     Premios,
-    Publicaciones 
+    Publicaciones, 
+    Texts, 
+    Pages
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

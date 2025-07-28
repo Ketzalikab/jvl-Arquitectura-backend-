@@ -30,8 +30,15 @@ export const ProyectosArquitectura: CollectionConfig = {
   admin: {
     useAsTitle: 'titulo',
     // La preview ahora usará el slug del documento, que se genera en el hook
-    preview: (doc) => `${process.env.FRONT_URL}/arquitectura/proyectos/${doc.slug}`,
+    preview: (doc, { locale}) => {
+       const currentLocale = locale || 'es';
+    
+    // El slug ya debería ser el correcto para el idioma que estás editando.
+    const slug = doc.slug;
+
+    return `${process.env.FRONT_URL}/${currentLocale}/projects/${slug}`;
   },
+},
   fields: [
      {
           name: 'publico',
@@ -74,10 +81,29 @@ export const ProyectosArquitectura: CollectionConfig = {
 
        
         {
-          name: 'imagen-portada',
+          name: 'sketch_front',
           type: 'upload',
           relationTo: 'media',
-          label: 'cover-Image',
+          label: 'Sketch front',
+        },
+         {
+          name: 'sketch_back',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Image back sketch section',
+        },
+        
+        {
+          name: 'cover_image_front',
+          type: 'upload',
+          relationTo: 'media',
+          label:'Cover Image Front'
+        },
+         {
+          name: 'cover_image_back',
+          type: 'upload',
+          relationTo: 'media',
+          label:'Cover Image Back'
         },
 
         {
@@ -113,50 +139,11 @@ export const ProyectosArquitectura: CollectionConfig = {
 
           {
          name: 'category',
-  type: 'select',
+  type: 'text',
+  label: 'Category',
+  localized: true,
+          },
 
-  label: 'Category', 
-  options: [
-    {
-      // El 'label' es ahora un objeto con las traducciones
-      label: {
-        es: 'Residencial',
-        en: 'Residential',
-      },
-      value: 'residencial',
-    },
-    {
-      label: {
-        es: 'Multi-familiar',
-        en: 'Multi-familiar',
-      },
-      value: 'multi-familiar',
-    },
-    {
-      label: {
-        es: 'Corporativo',
-        en: 'Corporate',
-      },
-      value: 'corporativo',
-    },
-
-    {
-      label: {
-        es: 'Resort',
-        en: 'Resort',
-      },
-      value: 'resort',
-    },
-    
-    {
-      label: {
-        es: 'Proyectos Especiales',
-        en: 'Special Projects',
-      },
-      value: 'proyectos-especiales', 
-    }
-  ]
-},
      {
               name: 'video',
               type: 'upload',
@@ -180,11 +167,13 @@ export const ProyectosArquitectura: CollectionConfig = {
           name: 'imagenes',
           type: 'array',
           label: 'Images',
+         
           fields: [
             {
               name: 'imagen',
               type: 'upload',
               relationTo: 'media',
+              localized: true,
               label: 'Image',
             },
           ],
