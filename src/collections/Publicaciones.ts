@@ -16,8 +16,8 @@ const formatSlug = (val: string): string => {
 export const Publicaciones: CollectionConfig = {
   slug: 'publicaciones',
   labels: {
-    singular: 'Premio',
-    plural: 'Premios'
+    singular: 'Publication',
+    plural: 'Publications'
   },
   access: {
     read: () => true,

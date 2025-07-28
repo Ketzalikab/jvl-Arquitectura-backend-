@@ -21,16 +21,15 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  serverURL: process.env.SERVER_URL || 'http://104.248.8.26/api/graphql',  
-  cors: {
-    origin: [
-    process.env.FRONT_URL || 'http://104.248.8.26',
+  serverURL: process.env.SERVER_URL,  
+  cors:[
+    process.env.FRONT_URL || '',
     'http://localhost:3001',
     'http://104.248.8.26'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-},
+  allowedHeaders: ['Content-Type', 'Authorization'],
+ 
 
   graphQL: {
     disable: false,
@@ -46,7 +45,7 @@ routes: {
   },
 
   admin: {
-    user: 'usuarios',
+    user: 'users',
     importMap: {
       baseDir: path.resolve(dirname),
     },

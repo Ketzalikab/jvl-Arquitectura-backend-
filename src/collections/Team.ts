@@ -27,6 +27,8 @@
      update: () => true,
      delete: () => true,
    },
+
+   
    admin: {
      useAsTitle: 'titulo',
      // La preview ahora usará el slug del documento, que se genera en el hook
@@ -34,6 +36,12 @@
    },
    fields: [
  
+    {
+          name: 'titulo',
+          type: 'text',
+          label: 'Título',
+           localized: true,
+        },
  
  {
           name: 'equipoCreativo',
@@ -44,12 +52,7 @@
             plural: 'Miembros',
           },
           fields: [
-             {
-          name: 'titulo',
-          type: 'text',
-          label: 'Título',
-           localized: true,
-        },
+             
             {
               name: 'imagen',
               type: 'upload',

@@ -69,6 +69,13 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    home: Home;
+    proyectosArquitectura: ProyectosArquitectura;
+    team: Team;
+    news: News;
+    contact: Contact;
+    premios: Premio;
+    publicaciones: Publicacione;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +84,13 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    home: HomeSelect<false> | HomeSelect<true>;
+    proyectosArquitectura: ProyectosArquitecturaSelect<false> | ProyectosArquitecturaSelect<true>;
+    team: TeamSelect<false> | TeamSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
+    premios: PremiosSelect<false> | PremiosSelect<true>;
+    publicaciones: PublicacionesSelect<false> | PublicacionesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -86,7 +100,7 @@ export interface Config {
   };
   globals: {};
   globalsSelect: {};
-  locale: null;
+  locale: 'es' | 'en';
   user: User & {
     collection: 'users';
   };
@@ -143,7 +157,10 @@ export interface User {
  */
 export interface Media {
   id: string;
-  alt: string;
+  /**
+   * El nombre del archivo se generará a partir de este título.
+   */
+  titulo: string;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -155,6 +172,330 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: string;
+  titulo?: string | null;
+  slug?: string | null;
+  /**
+   * Agrega 5 secciones con título e imagen
+   */
+  sections?:
+    | {
+        /**
+         * Título de la sección
+         */
+        sectionTitle: string;
+        /**
+         * Esta parte de la URL no cambia entre idiomas.
+         */
+        sectionSlug: string;
+        publico?: boolean | null;
+        /**
+         * Imagen para esta sección
+         */
+        sectionImage: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "proyectosArquitectura".
+ */
+export interface ProyectosArquitectura {
+  id: string;
+  publico?: boolean | null;
+  titulo: string;
+  /**
+   * El slug debe ser igual a la versión en ingles.
+   */
+  slug?: string | null;
+  'imagen-portada'?: (string | null) | Media;
+  location?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  year?: number | null;
+  area?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  category?: ('residencial' | 'multi-familiar' | 'corporativo' | 'resort' | 'proyectos-especiales') | null;
+  video?: (string | null) | Media;
+  GeneralesProyectoArquitectura?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  imagenes?:
+    | {
+        imagen?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team".
+ */
+export interface Team {
+  id: string;
+  titulo?: string | null;
+  equipoCreativo?:
+    | {
+        imagen?: (string | null) | Media;
+        nombre?: string | null;
+        puesto?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: string;
+  publico?: boolean | null;
+  titulo: string;
+  /**
+   * Generado automáticamente a partir del título.
+   */
+  slug?: string | null;
+  noticias?:
+    | {
+        imagenLogo?: (string | null) | Media;
+        imagen?: (string | null) | Media;
+        proyecto?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        nota?:
+          | {
+              imagen?: (string | null) | Media;
+              proyecto?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: string;
+  publico?: boolean | null;
+  titulo: string;
+  /**
+   * Generado automáticamente a partir del título.
+   */
+  slug?: string | null;
+  contenido?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "premios".
+ */
+export interface Premio {
+  id: string;
+  publico?: boolean | null;
+  titulo: string;
+  /**
+   * Generado automáticamente a partir del título.
+   */
+  slug?: string | null;
+  premio?:
+    | {
+        imagenLogo?: (string | null) | Media;
+        imagen?: (string | null) | Media;
+        proyecto?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        premioRelacionado?:
+          | {
+              imagen?: (string | null) | Media;
+              premioRelacionadoContenido?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publicaciones".
+ */
+export interface Publicacione {
+  id: string;
+  publico?: boolean | null;
+  titulo: string;
+  /**
+   * Generado automáticamente a partir del título.
+   */
+  slug?: string | null;
+  premio?:
+    | {
+        imagenLogo?: (string | null) | Media;
+        imagen?: (string | null) | Media;
+        proyecto?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        premioRelacionado?:
+          | {
+              imagen?: (string | null) | Media;
+              premioRelacionadoContenido?: {
+                root: {
+                  type: string;
+                  children: {
+                    type: string;
+                    version: number;
+                    [k: string]: unknown;
+                  }[];
+                  direction: ('ltr' | 'rtl') | null;
+                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                  indent: number;
+                  version: number;
+                };
+                [k: string]: unknown;
+              } | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -170,6 +511,34 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'home';
+        value: string | Home;
+      } | null)
+    | ({
+        relationTo: 'proyectosArquitectura';
+        value: string | ProyectosArquitectura;
+      } | null)
+    | ({
+        relationTo: 'team';
+        value: string | Team;
+      } | null)
+    | ({
+        relationTo: 'news';
+        value: string | News;
+      } | null)
+    | ({
+        relationTo: 'contact';
+        value: string | Contact;
+      } | null)
+    | ({
+        relationTo: 'premios';
+        value: string | Premio;
+      } | null)
+    | ({
+        relationTo: 'publicaciones';
+        value: string | Publicacione;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -240,7 +609,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
+  titulo?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -252,6 +621,156 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  titulo?: T;
+  slug?: T;
+  sections?:
+    | T
+    | {
+        sectionTitle?: T;
+        sectionSlug?: T;
+        publico?: T;
+        sectionImage?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "proyectosArquitectura_select".
+ */
+export interface ProyectosArquitecturaSelect<T extends boolean = true> {
+  publico?: T;
+  titulo?: T;
+  slug?: T;
+  'imagen-portada'?: T;
+  location?: T;
+  year?: T;
+  area?: T;
+  category?: T;
+  video?: T;
+  GeneralesProyectoArquitectura?: T;
+  imagenes?:
+    | T
+    | {
+        imagen?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team_select".
+ */
+export interface TeamSelect<T extends boolean = true> {
+  titulo?: T;
+  equipoCreativo?:
+    | T
+    | {
+        imagen?: T;
+        nombre?: T;
+        puesto?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  publico?: T;
+  titulo?: T;
+  slug?: T;
+  noticias?:
+    | T
+    | {
+        imagenLogo?: T;
+        imagen?: T;
+        proyecto?: T;
+        nota?:
+          | T
+          | {
+              imagen?: T;
+              proyecto?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  publico?: T;
+  titulo?: T;
+  slug?: T;
+  contenido?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "premios_select".
+ */
+export interface PremiosSelect<T extends boolean = true> {
+  publico?: T;
+  titulo?: T;
+  slug?: T;
+  premio?:
+    | T
+    | {
+        imagenLogo?: T;
+        imagen?: T;
+        proyecto?: T;
+        premioRelacionado?:
+          | T
+          | {
+              imagen?: T;
+              premioRelacionadoContenido?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publicaciones_select".
+ */
+export interface PublicacionesSelect<T extends boolean = true> {
+  publico?: T;
+  titulo?: T;
+  slug?: T;
+  premio?:
+    | T
+    | {
+        imagenLogo?: T;
+        imagen?: T;
+        proyecto?: T;
+        premioRelacionado?:
+          | T
+          | {
+              imagen?: T;
+              premioRelacionadoContenido?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

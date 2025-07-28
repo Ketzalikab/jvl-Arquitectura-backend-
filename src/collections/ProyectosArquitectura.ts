@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 
+
 const formatSlug = (val: string): string => {
   return val
     .toLowerCase()
@@ -17,8 +18,8 @@ const formatSlug = (val: string): string => {
 export const ProyectosArquitectura: CollectionConfig = {
   slug: 'proyectosArquitectura',
   labels: {
-    singular: 'Proyecto Arquitectura',
-    plural: 'Proyectos Arquitectura'
+    singular: 'Architecture Project',
+    plural: 'Architecture Projects'
   },
   access: {
     read: () => true,
@@ -52,7 +53,7 @@ export const ProyectosArquitectura: CollectionConfig = {
       admin: {
         
         position: 'sidebar', // Queda mejor en la barra lateral
-        description: 'El slug debe ser igual a la versión en español.',
+        description: 'El slug debe ser igual a la versión en ingles.',
       },
       hooks: {
         // 2. Usamos la nueva función dentro del hook
@@ -70,11 +71,51 @@ export const ProyectosArquitectura: CollectionConfig = {
         ],
       }
     },
+
+       
+        {
+          name: 'imagen-portada',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'cover-Image',
+        },
+
+        {
+          name: 'location',
+          type: 'richText',
+           label: 'Location',
+          localized: true,
+           editor: lexicalEditor({
+                  admin: {
+                  placeholder: 'text',
+                    }
+                   }),
+        },
+
+        {
+          name: 'year',
+          type: 'number',
+          label: 'Year',
+        },
+
+        {
+          name: 'area',
+          type: 'richText',
+          label: 'Area',
+          editor: lexicalEditor({
+                  admin: {
+                  placeholder: 'text',
+                    }
+                   }),
+          
+        },
+
+
           {
-         name: 'tipologia',
+         name: 'category',
   type: 'select',
-  // localized: false (o se omite), ¡el valor guardado no cambia!
-  label: 'Tipología', // Puedes localizar la etiqueta principal del campo si lo deseas
+
+  label: 'Category', 
   options: [
     {
       // El 'label' es ahora un objeto con las traducciones
@@ -82,14 +123,14 @@ export const ProyectosArquitectura: CollectionConfig = {
         es: 'Residencial',
         en: 'Residential',
       },
-      value: 'residencial', // El valor es el mismo para todos los idiomas
+      value: 'residencial',
     },
     {
       label: {
-        es: 'Desarrollos Residenciales',
-        en: 'Residential Developments',
+        es: 'Multi-familiar',
+        en: 'Multi-familiar',
       },
-      value: 'desarrollos-residenciales',
+      value: 'multi-familiar',
     },
     {
       label: {
@@ -112,69 +153,41 @@ export const ProyectosArquitectura: CollectionConfig = {
         es: 'Proyectos Especiales',
         en: 'Special Projects',
       },
-      value: 'proyectos-especiales', // Es buena práctica usar slugs en los values
+      value: 'proyectos-especiales', 
     }
   ]
 },
-         
+     {
+              name: 'video',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'video',
+            }, 
       
-      
-        {
-          name: 'imagen',
-          type: 'upload',
-          relationTo: 'media',
-          label: 'Imagen',
-        },
        
         {
           name: 'GeneralesProyectoArquitectura',
           type: 'richText',
-          label: 'Generales proyecto',
+          label: 'Text about project',
           localized: true,
            editor: lexicalEditor({
                   admin: {
-                  placeholder: 'texto',
+                  placeholder: 'text',
                     }
                    }),
         },
         {
-          name: 'imagenCarrusel',
+          name: 'imagenes',
           type: 'array',
-          label: 'Imagenes Carrusel',
+          label: 'Images',
           fields: [
             {
               name: 'imagen',
               type: 'upload',
               relationTo: 'media',
-              label: 'Imagen',
+              label: 'Image',
             },
           ],
         },
-        {
-          name: 'ContenidoProyectoArquitectura',
-          type: 'richText',
-          label: 'Contenidos de proyecto',
-          localized: true,
-           editor: lexicalEditor({
-                  admin: {
-                  placeholder: 'texto',
-                    }
-                   }),
-        },
-        {
-          name: 'imagenCarruselPlano',
-          type: 'array',
-          label: 'Imagenes Carrusel Plano',
-          fields: [
-            {
-              name: 'imagen',
-              type: 'upload',
-              relationTo: 'media',
-              label: 'Imagen',
-            },
-          ],
-        },
-      ],
-    };
-
- 
+      ]
+    }
