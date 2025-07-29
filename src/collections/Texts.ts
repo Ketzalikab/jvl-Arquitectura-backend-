@@ -2,7 +2,7 @@ import { CollectionConfig } from "payload";
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 
 export const Texts: CollectionConfig = {
-  slug: 'textos', // Este es el 'slug' que usas en los campos de relación
+  slug: 'textos', 
   labels: {
     singular: 'Reusable Text',
     plural: 'Reusable Texts',

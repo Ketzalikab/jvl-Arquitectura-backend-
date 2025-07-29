@@ -289,14 +289,24 @@ export interface ProyectosArquitectura {
 export interface Team {
   id: string;
   titulo?: string | null;
-  equipoCreativo?:
-    | {
-        imagen?: (string | null) | Media;
-        nombre?: string | null;
-        puesto?: string | null;
-        id?: string | null;
-      }[]
-    | null;
+  imagen?: (string | null) | Media;
+  nombre?: string | null;
+  puesto?: string | null;
+  bioText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -541,16 +551,48 @@ export interface Texto {
 export interface Page {
   id: string;
   title: string;
-  slug: string;
+  /**
+   * El slug debe ser igual a la versión en ingles.
+   */
+  slug?: string | null;
   layout: (
     | {
-        headerText?: string | null;
+        headerText?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         backgroundImage: string | Media;
         id?: string | null;
         blockName?: string | null;
         blockType: 'heroBlock';
       }
     | {
+        acronymText?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         letters?:
           | {
               letter: string;
@@ -563,9 +605,37 @@ export interface Page {
         blockType: 'smartAcronym';
       }
     | {
+        directorName?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         directorImage: string | Media;
-        director?: (string | null) | Team;
-        bioText?: (string | null) | Texto;
+        bioText?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
         id?: string | null;
         blockName?: string | null;
         blockType: 'directorBio';
@@ -782,14 +852,10 @@ export interface ProyectosArquitecturaSelect<T extends boolean = true> {
  */
 export interface TeamSelect<T extends boolean = true> {
   titulo?: T;
-  equipoCreativo?:
-    | T
-    | {
-        imagen?: T;
-        nombre?: T;
-        puesto?: T;
-        id?: T;
-      };
+  imagen?: T;
+  nombre?: T;
+  puesto?: T;
+  bioText?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -914,6 +980,7 @@ export interface PagesSelect<T extends boolean = true> {
         smartAcronym?:
           | T
           | {
+              acronymText?: T;
               letters?:
                 | T
                 | {
@@ -927,8 +994,8 @@ export interface PagesSelect<T extends boolean = true> {
         directorBio?:
           | T
           | {
+              directorName?: T;
               directorImage?: T;
-              director?: T;
               bioText?: T;
               id?: T;
               blockName?: T;

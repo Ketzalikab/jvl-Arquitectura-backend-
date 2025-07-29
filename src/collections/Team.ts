@@ -43,15 +43,6 @@
            localized: true,
         },
  
- {
-          name: 'equipoCreativo',
-          label: 'Equipo',
-          type: 'array',
-          labels: {
-            singular: 'Miembro',
-            plural: 'Miembros',
-          },
-          fields: [
              
             {
               name: 'imagen',
@@ -71,7 +62,19 @@
               label: 'Puesto',
                localized: true,
             },
-          ],
+             
+             {
+              name: 'bioText',
+             type: 'richText',
+
+              localized: true,
+              label:'Bio text',
+           editor: lexicalEditor({
+        admin: {
+          placeholder: 'Text...',
         },
-      ],
-    }
+      }),
+             },
+
+          ],
+        }

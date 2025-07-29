@@ -1,15 +1,40 @@
 import { CollectionConfig } from "payload";
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 
+
+
+const formatSlug = (val: string): string => {
+  return val
+    .toLowerCase()
+    .normalize('NFD') // Separa los caracteres de sus acentos (ej. 'á' -> 'a' + '´')
+    .replace(/[\u0300-\u036f]/g, '') // Elimina los acentos diacríticos
+    .replace(/[^\w\-]+/g, '-') // Reemplaza caracteres no alfanuméricos (excepto guiones) con un guion
+    .replace(/\s+/g, '-') // Reemplaza espacios con guiones
+    .replace(/-+/g, '-') // Reemplaza múltiples guiones por uno solo
+    .replace(/^-+/, '') // Elimina guiones del principio
+    .replace(/-+$/, ''); // Elimina guiones del final
+}
+
+
 export const Pages: CollectionConfig = {
   slug: 'pages',
-  admin: {
+   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    // La preview ahora usará el slug del documento, que se genera en el hook
+    preview: (doc, { locale}) => {
+       const currentLocale = locale || 'es';
+    
+    // El slug ya debería ser el correcto para el idioma que estás editando.
+    const slug = doc.slug;
+
+    return `${process.env.FRONT_URL}/${currentLocale}/${slug}`;
   },
-  access: {
+},
+access: {
     read: () => true,
-  },
+},
+
+    
   fields: [
     {
       name: 'title',
@@ -17,16 +42,34 @@ export const Pages: CollectionConfig = {
       required: true,
       localized: true,
     },
-    {
+   
+       {
       name: 'slug',
       type: 'text',
-      required: true,
-      unique: true,
-      index: true,
+      label: 'Slug',
+      localized: true,
       admin: {
-        position: 'sidebar',
+        
+        position: 'sidebar', // Queda mejor en la barra lateral
+        description: 'El slug debe ser igual a la versión en ingles.',
       },
+      hooks: {
+        // 2. Usamos la nueva función dentro del hook
+        beforeValidate: [ // Usamos beforeValidate para que el slug se genere antes de cualquier validación
+          ({ data, originalDoc, operation }) => {
+            // Genera el slug solo si el título ha cambiado o si es un documento nuevo
+            if (data && (operation === 'create' || data.title !== originalDoc?.title)) {
+              if (data?.title) {
+                return formatSlug(data.title);
+              }
+            }
+            // Si no, no hagas nada y conserva el slug existente
+            return data?.slug;
+          },
+        ],
+      }
     },
+
     {
       name: 'layout',
       type: 'blocks',
@@ -38,9 +81,15 @@ export const Pages: CollectionConfig = {
           fields: [
             {
               name: 'headerText',
-              type: 'text',
+              type: 'richText',
               localized: true,
-            },
+           editor: lexicalEditor({
+        admin: {
+          placeholder: 'Text...',
+        },
+      }),
+    },
+
             {
               name: 'backgroundImage',
               type: 'upload',
@@ -56,6 +105,16 @@ export const Pages: CollectionConfig = {
             plural: 'SMART Acronyms',
           },
           fields: [
+            {
+              name: 'acronymText',
+              type: 'richText',
+              localized: true,
+           editor: lexicalEditor({
+        admin: {
+          placeholder: 'Text...',
+        },
+      }),
+    },
             {
               name: 'letters',
               type: 'array',
@@ -84,22 +143,33 @@ export const Pages: CollectionConfig = {
           },
           fields: [
             {
+              name: 'directorName',
+              type: 'richText',
+              localized: true,
+           editor: lexicalEditor({
+        admin: {
+          placeholder: 'Text...',
+        },
+      }),
+    },
+            {
               name: 'directorImage',
               type: 'upload',
               relationTo: 'media',
               required: true,
             },
-            {
-              name: 'director',
-              type: 'relationship',
-              relationTo: 'team', // Asumiendo que tu colección de equipo se llama 'team'
-              hasMany: false,
-            },
+           
             {
               name: 'bioText',
-              type: 'relationship',
-              relationTo: 'textos', // Asumiendo que tu colección de textos se llama 'textos'
-              hasMany: false,
+             type: 'richText',
+
+              localized: true,
+              label:'Bio text',
+           editor: lexicalEditor({
+        admin: {
+          placeholder: 'Text...',
+        },
+      }),
             },
           ],
         },
