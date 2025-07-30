@@ -1,6 +1,6 @@
 // storage-adapter-import-placeholder
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
+
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -13,11 +13,11 @@ import { Home } from './collections/Home'
 import { ProyectosArquitectura } from './collections/ProyectosArquitectura'
 import { Team } from './collections/Team'
 import { News } from './collections/News'
-import { Contact } from './collections/Contact'
+
 import { Premios } from './collections/Premios'
 import { Publicaciones } from './collections/Publicaciones'
 
-import { Texts } from './collections/Texts'
+
 import { Pages } from './collections/Pages'
 
 const filename = fileURLToPath(import.meta.url)
@@ -75,10 +75,10 @@ routes: {
     ProyectosArquitectura,
     Team,
     News, 
-    Contact,
+
     Premios,
     Publicaciones, 
-    Texts, 
+
     Pages
   ],
   editor: lexicalEditor(),

@@ -73,10 +73,8 @@ export interface Config {
     proyectosArquitectura: ProyectosArquitectura;
     team: Team;
     news: News;
-    contact: Contact;
     premios: Premio;
     publicaciones: Publicacione;
-    textos: Texto;
     pages: Page;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,10 +88,8 @@ export interface Config {
     proyectosArquitectura: ProyectosArquitecturaSelect<false> | ProyectosArquitecturaSelect<true>;
     team: TeamSelect<false> | TeamSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
-    contact: ContactSelect<false> | ContactSelect<true>;
     premios: PremiosSelect<false> | PremiosSelect<true>;
     publicaciones: PublicacionesSelect<false> | PublicacionesSelect<true>;
-    textos: TextosSelect<false> | TextosSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -317,70 +313,8 @@ export interface Team {
 export interface News {
   id: string;
   publico?: boolean | null;
-  titulo: string;
-  /**
-   * Generado automáticamente a partir del título.
-   */
-  slug?: string | null;
-  noticias?:
-    | {
-        imagenLogo?: (string | null) | Media;
-        imagen?: (string | null) | Media;
-        proyecto?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        nota?:
-          | {
-              imagen?: (string | null) | Media;
-              proyecto?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact".
- */
-export interface Contact {
-  id: string;
-  publico?: boolean | null;
-  titulo: string;
-  /**
-   * Generado automáticamente a partir del título.
-   */
-  slug?: string | null;
-  contenido?: {
+  title: string;
+  newsText?: {
     root: {
       type: string;
       children: {
@@ -395,6 +329,10 @@ export interface Contact {
     };
     [k: string]: unknown;
   } | null;
+  source: string;
+  imageLogo?: (string | null) | Media;
+  month?: string | null;
+  year?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -405,128 +343,8 @@ export interface Contact {
 export interface Premio {
   id: string;
   publico?: boolean | null;
-  titulo: string;
-  /**
-   * Generado automáticamente a partir del título.
-   */
-  slug?: string | null;
-  premio?:
-    | {
-        imagenLogo?: (string | null) | Media;
-        imagen?: (string | null) | Media;
-        proyecto?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        premioRelacionado?:
-          | {
-              imagen?: (string | null) | Media;
-              premioRelacionadoContenido?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "publicaciones".
- */
-export interface Publicacione {
-  id: string;
-  publico?: boolean | null;
-  titulo: string;
-  /**
-   * Generado automáticamente a partir del título.
-   */
-  slug?: string | null;
-  premio?:
-    | {
-        imagenLogo?: (string | null) | Media;
-        imagen?: (string | null) | Media;
-        proyecto?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        premioRelacionado?:
-          | {
-              imagen?: (string | null) | Media;
-              premioRelacionadoContenido?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: string;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              id?: string | null;
-            }[]
-          | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Fragmentos de texto que se pueden reutilizar en varias páginas.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "textos".
- */
-export interface Texto {
-  id: string;
-  /**
-   * Este nombre es solo para identificar el texto en el panel de administración (ej. "Biografía del Director", "Eslogan de la página de inicio"). No se muestra en la web.
-   */
-  internalName: string;
-  content: {
+  title: string;
+  awardsText?: {
     root: {
       type: string;
       children: {
@@ -540,7 +358,41 @@ export interface Texto {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
+  source: string;
+  imageLogo?: (string | null) | Media;
+  month?: string | null;
+  year?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "publicaciones".
+ */
+export interface Publicacione {
+  id: string;
+  publico?: boolean | null;
+  title: string;
+  publicationText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  source: string;
+  imageLogo?: (string | null) | Media;
+  month?: string | null;
+  year?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -663,6 +515,57 @@ export interface Page {
         blockName?: string | null;
         blockType: 'newsAndPublications';
       }
+    | {
+        email?: string | null;
+        instagram?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        youTube?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        cabo?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'contactInfoBlock';
+      }
   )[];
   updatedAt: string;
   createdAt: string;
@@ -699,20 +602,12 @@ export interface PayloadLockedDocument {
         value: string | News;
       } | null)
     | ({
-        relationTo: 'contact';
-        value: string | Contact;
-      } | null)
-    | ({
         relationTo: 'premios';
         value: string | Premio;
       } | null)
     | ({
         relationTo: 'publicaciones';
         value: string | Publicacione;
-      } | null)
-    | ({
-        relationTo: 'textos';
-        value: string | Texto;
       } | null)
     | ({
         relationTo: 'pages';
@@ -865,35 +760,12 @@ export interface TeamSelect<T extends boolean = true> {
  */
 export interface NewsSelect<T extends boolean = true> {
   publico?: T;
-  titulo?: T;
-  slug?: T;
-  noticias?:
-    | T
-    | {
-        imagenLogo?: T;
-        imagen?: T;
-        proyecto?: T;
-        nota?:
-          | T
-          | {
-              imagen?: T;
-              proyecto?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "contact_select".
- */
-export interface ContactSelect<T extends boolean = true> {
-  publico?: T;
-  titulo?: T;
-  slug?: T;
-  contenido?: T;
+  title?: T;
+  newsText?: T;
+  source?: T;
+  imageLogo?: T;
+  month?: T;
+  year?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -903,23 +775,12 @@ export interface ContactSelect<T extends boolean = true> {
  */
 export interface PremiosSelect<T extends boolean = true> {
   publico?: T;
-  titulo?: T;
-  slug?: T;
-  premio?:
-    | T
-    | {
-        imagenLogo?: T;
-        imagen?: T;
-        proyecto?: T;
-        premioRelacionado?:
-          | T
-          | {
-              imagen?: T;
-              premioRelacionadoContenido?: T;
-              id?: T;
-            };
-        id?: T;
-      };
+  title?: T;
+  awardsText?: T;
+  source?: T;
+  imageLogo?: T;
+  month?: T;
+  year?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -929,33 +790,12 @@ export interface PremiosSelect<T extends boolean = true> {
  */
 export interface PublicacionesSelect<T extends boolean = true> {
   publico?: T;
-  titulo?: T;
-  slug?: T;
-  premio?:
-    | T
-    | {
-        imagenLogo?: T;
-        imagen?: T;
-        proyecto?: T;
-        premioRelacionado?:
-          | T
-          | {
-              imagen?: T;
-              premioRelacionadoContenido?: T;
-              id?: T;
-            };
-        id?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "textos_select".
- */
-export interface TextosSelect<T extends boolean = true> {
-  internalName?: T;
-  content?: T;
+  title?: T;
+  publicationText?: T;
+  source?: T;
+  imageLogo?: T;
+  month?: T;
+  year?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1023,6 +863,16 @@ export interface PagesSelect<T extends boolean = true> {
               featuredAwards?: T;
               featuredNews?: T;
               featuredPublications?: T;
+              id?: T;
+              blockName?: T;
+            };
+        contactInfoBlock?:
+          | T
+          | {
+              email?: T;
+              instagram?: T;
+              youTube?: T;
+              cabo?: T;
               id?: T;
               blockName?: T;
             };

@@ -257,7 +257,40 @@ access: {
       label: 'Featured Publications',
     },
   ],
+},
+    {
+  slug: 'contactInfoBlock',
+  labels: {
+    singular: 'Contact Information',
+    plural: 'Contact Information Blocks',
+  },
+  fields: [
+    {
+      name: 'email',
+      type: 'email',
+      label: 'Email Address',
+    },
+    {
+      name: 'instagram',
+      type: 'richText', // Usamos richText para que puedas añadir un enlace
+      label: 'Instagram',
+      editor: lexicalEditor({}),
+    },
+    {
+      name: 'youTube',
+      type: 'richText', // Lo mismo para YouTube
+      label: 'YouTube',
+      editor: lexicalEditor({}),
+    },
+    {
+      name: 'cabo',
+      type: 'richText', // richText para la dirección, permite saltos de línea y formato
+      label: 'Cabo San Lucas Address',
+      editor: lexicalEditor({}),
+    },
+  ],
 }
+
       ]
     }
   ],
