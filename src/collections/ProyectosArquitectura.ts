@@ -146,9 +146,9 @@ export const ProyectosArquitectura: CollectionConfig = {
 
      {
               name: 'video',
-              type: 'upload',
-              relationTo: 'media',
-              label: 'video',
+              type: 'text',
+            
+              label: 'Youtube Video URL',
             }, 
       
        

@@ -24,22 +24,21 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  serverURL: process.env.SERVER_URL,  
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL ||  'http://159.65.255.5',
+  
   cors:[
     process.env.FRONT_URL || '',
     'http://localhost:3001',
-    'http://104.248.8.26'
+      'http://localhost:3000',
+    'http://159.65.255.5'
   ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
- 
 
+  
   graphQL: {
     disable: false,
     disablePlaygroundInProduction: false,
-     onError: (error) => {
-      console.error('GraphQL Error:', error);
-    }
+    
+    
 },
 routes: {
     admin: '/admin',

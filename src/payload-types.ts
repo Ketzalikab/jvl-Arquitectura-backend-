@@ -179,29 +179,7 @@ export interface Media {
  */
 export interface Home {
   id: string;
-  titulo?: string | null;
-  slug?: string | null;
-  /**
-   * Agrega 5 secciones con título e imagen
-   */
-  sections?:
-    | {
-        /**
-         * Título de la sección
-         */
-        sectionTitle: string;
-        /**
-         * Esta parte de la URL no cambia entre idiomas.
-         */
-        sectionSlug: string;
-        publico?: boolean | null;
-        /**
-         * Imagen para esta sección
-         */
-        sectionImage: string | Media;
-        id?: string | null;
-      }[]
-    | null;
+  video?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -253,7 +231,7 @@ export interface ProyectosArquitectura {
     [k: string]: unknown;
   } | null;
   category?: string | null;
-  video?: (string | null) | Media;
+  video?: string | null;
   GeneralesProyectoArquitectura?: {
     root: {
       type: string;
@@ -700,17 +678,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
-  titulo?: T;
-  slug?: T;
-  sections?:
-    | T
-    | {
-        sectionTitle?: T;
-        sectionSlug?: T;
-        publico?: T;
-        sectionImage?: T;
-        id?: T;
-      };
+  video?: T;
   updatedAt?: T;
   createdAt?: T;
 }

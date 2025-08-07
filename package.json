@@ -23,12 +23,14 @@
     "@payloadcms/payload-cloud": "3.48.0",
     "@payloadcms/richtext-lexical": "3.48.0",
     "@payloadcms/ui": "3.48.0",
+    "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
     "graphql": "^16.8.1",
     "next": "15.3.2",
     "payload": "3.48.0",
-    "react": "19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "sharp": "0.34.2"
   },
   "devDependencies": {
