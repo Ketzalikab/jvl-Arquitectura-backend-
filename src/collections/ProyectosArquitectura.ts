@@ -50,7 +50,7 @@ export const ProyectosArquitectura: CollectionConfig = {
       type: 'text',
       label: 'Título',
       required: true, // Es buena práctica que el título sea requerido si el slug depende de él
-      localized: true,
+      
     },
     {
       name: 'slug',
@@ -84,7 +84,7 @@ export const ProyectosArquitectura: CollectionConfig = {
           name: 'sketch_front',
           type: 'upload',
           relationTo: 'media',
-          label: 'Sketch front',
+          label: 'Sketch front ',
         },
          {
           name: 'sketch_back',
@@ -128,6 +128,7 @@ export const ProyectosArquitectura: CollectionConfig = {
           name: 'area',
           type: 'richText',
           label: 'Area',
+          localized: true,
           editor: lexicalEditor({
                   admin: {
                   placeholder: 'text',
@@ -173,8 +174,22 @@ export const ProyectosArquitectura: CollectionConfig = {
               name: 'imagen',
               type: 'upload',
               relationTo: 'media',
-              localized: true,
               label: 'Image',
+            },
+          ],
+        },
+        {
+          name: 'imagenesPlanos',
+          type: 'array',
+          label: 'Planos-Imagen',
+         
+          fields: [
+            {
+              name: 'imagenPlano',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Image',
+              localized: true,
             },
           ],
         },

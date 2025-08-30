@@ -122,6 +122,7 @@ access: {
                 {
                   name: 'letter',
                   type: 'text',
+                  localized: true,
                   maxLength: 1,
                   required: true,
                 },

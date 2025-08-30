@@ -253,6 +253,12 @@ export interface ProyectosArquitectura {
         id?: string | null;
       }[]
     | null;
+  imagenesPlanos?:
+    | {
+        imagenPlano?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -704,6 +710,12 @@ export interface ProyectosArquitecturaSelect<T extends boolean = true> {
     | T
     | {
         imagen?: T;
+        id?: T;
+      };
+  imagenesPlanos?:
+    | T
+    | {
+        imagenPlano?: T;
         id?: T;
       };
   updatedAt?: T;
