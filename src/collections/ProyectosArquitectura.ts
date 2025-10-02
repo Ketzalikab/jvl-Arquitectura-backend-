@@ -29,11 +29,11 @@ export const ProyectosArquitectura: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'titulo',
-    // La preview ahora usará el slug del documento, que se genera en el hook
+
     preview: (doc, { locale}) => {
        const currentLocale = locale || 'es';
     
-    // El slug ya debería ser el correcto para el idioma que estás editando.
+    
     const slug = doc.slug;
 
     return `${process.env.FRONT_URL}/${currentLocale}/projects/${slug}`;
@@ -49,17 +49,17 @@ export const ProyectosArquitectura: CollectionConfig = {
       name: 'titulo',
       type: 'text',
       label: 'Título',
-      required: true, // Es buena práctica que el título sea requerido si el slug depende de él
+      required: true, 
       
     },
     {
       name: 'slug',
       type: 'text',
       label: 'Slug',
-      localized: true,
+      localized: false,
       admin: {
         
-        position: 'sidebar', // Queda mejor en la barra lateral
+        position: 'sidebar', 
         description: 'El slug debe ser igual a la versión en ingles.',
       },
       hooks: {
