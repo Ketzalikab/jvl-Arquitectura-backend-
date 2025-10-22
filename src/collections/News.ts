@@ -29,8 +29,8 @@ export const News: CollectionConfig = {
       name: 'title',
       type: 'text',
       label: 'Title',
-      required: true, // Es buena práctica que el título sea requerido si el slug depende de él
-      localized: true,
+      required: true, 
+      localized: false,
     },
        {
               name: 'newsText',
@@ -50,7 +50,7 @@ export const News: CollectionConfig = {
       name: 'source',
       type: 'text',
       label: 'Source',
-      required: true, // Es buena práctica que el título sea requerido si el slug depende de él
+      required: true, 
       localized: true,
     },
    
@@ -66,6 +66,7 @@ export const News: CollectionConfig = {
                 name: 'month',
                 type: 'text',
                 label: 'Month',
+                localized: true,
         
               },
 

@@ -164,6 +164,19 @@ export const ProyectosArquitectura: CollectionConfig = {
                     }
                    }),
         },
+         {
+          name: 'creditos',
+          type: 'richText',
+          label: 'Credits',
+          required: false,
+          localized: true,
+          editor: lexicalEditor({
+                  admin: {
+                  placeholder: 'text',
+                    }
+                   }),
+          
+        },
         {
           name: 'imagenes',
           type: 'array',

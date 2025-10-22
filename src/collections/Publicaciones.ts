@@ -30,7 +30,7 @@ export const Publicaciones: CollectionConfig = {
       type: 'text',
       label: 'Title',
       required: true, 
-      localized: true,
+      localized: false,
     },
 
      {
@@ -65,6 +65,7 @@ export const Publicaciones: CollectionConfig = {
                 name: 'month',
                 type: 'text',
                 label: 'Month',
+                localized: true,
         
               },
 

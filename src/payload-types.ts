@@ -247,6 +247,21 @@ export interface ProyectosArquitectura {
     };
     [k: string]: unknown;
   } | null;
+  creditos?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   imagenes?:
     | {
         imagen?: (string | null) | Media;
@@ -706,6 +721,7 @@ export interface ProyectosArquitecturaSelect<T extends boolean = true> {
   category?: T;
   video?: T;
   GeneralesProyectoArquitectura?: T;
+  creditos?: T;
   imagenes?:
     | T
     | {
