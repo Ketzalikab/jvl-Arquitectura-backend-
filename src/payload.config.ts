@@ -24,13 +24,13 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL ||  'http://159.65.255.5',
+  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL ||  'https://jvlarquitectos.com',
   
   cors:[
     process.env.FRONT_URL || '',
     'http://localhost:3001',
       'http://localhost:3000',
-    'http://159.65.255.5'
+    'https://jvlarquitectos.com'
   ],
 
   
